@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/vnsonvo/jwt-authentication-in-go/controllers"
 	"github.com/vnsonvo/jwt-authentication-in-go/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -40,10 +41,8 @@ func init() {
 func main() {
 	r := gin.Default()
 	port := os.Getenv("PORT")
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+
+	r.POST("/signup", controllers.Signup(DB))
+
 	r.Run(":" + port)
 }
