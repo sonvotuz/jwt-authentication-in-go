@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"github.com/vnsonvo/jwt-authentication-in-go/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -22,6 +23,10 @@ func connectToDb() {
 	}
 }
 
+func syncDatabase() {
+	DB.AutoMigrate(&models.User{})
+}
+
 func init() {
 	err := godotenv.Load()
 	if err != nil {
@@ -29,6 +34,7 @@ func init() {
 	}
 
 	connectToDb()
+	syncDatabase()
 }
 
 func main() {
