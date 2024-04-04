@@ -114,3 +114,18 @@ func Login(db *gorm.DB) func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{})
 	}
 }
+
+func Check(c *gin.Context) {
+	user, exist := c.Get("user")
+	if !exist {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "User not exists",
+		})
+		return
+	}
+
+	email := user.(models.User).Email
+	c.JSON(http.StatusOK, gin.H{
+		"message": map[string]string{"email": email},
+	})
+}

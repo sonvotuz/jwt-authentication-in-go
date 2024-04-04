@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/vnsonvo/jwt-authentication-in-go/controllers"
+	"github.com/vnsonvo/jwt-authentication-in-go/middleware"
 	"github.com/vnsonvo/jwt-authentication-in-go/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -44,6 +45,7 @@ func main() {
 
 	r.POST("/signup", controllers.Signup(DB))
 	r.POST("/login", controllers.Login(DB))
+	r.GET("/check", middleware.RequireAuth(DB), controllers.Check)
 
 	r.Run(":" + port)
 }
