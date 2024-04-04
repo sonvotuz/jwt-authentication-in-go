@@ -43,6 +43,7 @@ func main() {
 	port := os.Getenv("PORT")
 
 	r.POST("/signup", controllers.Signup(DB))
+	r.POST("/login", controllers.Login(DB))
 
 	r.Run(":" + port)
 }
